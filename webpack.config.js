@@ -2,7 +2,7 @@
  * @Author: mikey.zhaopeng 
  * @Date: 2018-04-15 14:52:42 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-04-16 09:58:56
+ * @Last Modified time: 2018-04-16 17:36:34
  */
 var webpack = require("webpack");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -36,9 +36,19 @@ var configs = {
     module: {
         loaders: [
           { test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader","css-loader") },
-          { test: /\.(gif|png|jpg|woff|svg|eot|ttf)\??.*$/, loader: "url-loader?limit=100&name=../res/[name].[ext]" }
+          { test: /\.(gif|png|jpg|woff|svg|eot|ttf)\??.*$/, loader: "url-loader?limit=100&name=../res/[name].[ext]" },
+          { test: /\.string$/, loader: "html-loader" }
         ]
       },
+    resolve:{
+        alias:{
+            node_modules:__dirname+'/node_modules',
+            util:__dirname+'/src/util',
+            page:__dirname+'/src/page',
+            service:__dirname+'/src/service',
+            image:__dirname+'/src/image',
+        }
+    },
     plugins: [
         //独立通用模块
         new webpack.optimize.CommonsChunkPlugin({
