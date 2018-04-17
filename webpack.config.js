@@ -2,7 +2,7 @@
  * @Author: mikey.zhaopeng 
  * @Date: 2018-04-15 14:52:42 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-04-16 17:36:34
+ * @Last Modified time: 2018-04-17 10:45:22
  */
 var webpack = require("webpack");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -13,20 +13,22 @@ var WEBPACK_ENV = process.env.WEBPACK_ENV || 'online';
 console.log(WEBPACK_ENV);
 
 //获取html-webpack-plugins
-var getHtml = function (name) {
+var getHtml = function (name,title) {
     return {
-        template : "./src/view/"+name+".html",
-            filename : "view/"+name+".html",
-            inject   : true,
-            hash     : true,
-            chunks   : ['common',name]
+            title:title,                                    //设置生成的 html 文件的标题。
+            template : "./src/view/"+name+".html",          //根据自己的指定的模板文件来生成特定的 html 文件。这里的模板类型可以是任意你喜欢的模板，可                                                  以是 html, jade, ejs, hbs, 等等，但是要注意的是，使用自定义的模板文件时，需要提前安装对                                                     应的 loader， 否则webpack不能正确解析。
+            filename : "view/"+name+".html",                //生成 html 文件的文件名。默认为 index.html.
+            inject   : true,                                //script标签位于html文件的 body 底部
+            hash     : true,                                //hash选项的作用是 给生成的 js 文件一个独特的 hash 值
+            chunks   : ['common',name]                      //chunks 选项的作用主要是针对多入口(entry)文件。当你有多个入口文件的时候，对应就会生成多                                                    个编译后的 js 文件。那么 chunks 选项就可以决定是否都使用这些生成的 js 文件。
     }
 }
 var configs = {
     entry:{
         "common" : ["./src/page/common/common.js",],
         "index" : ["./src/page/index/index.js"],
-        "login" : ["./src/page/login/login.js"]
+        "login" : ["./src/page/login/login.js"],
+        "result" : ["./src/page/result/index.js"]
     },
     output:{
         path:"./dist",
@@ -58,11 +60,12 @@ var configs = {
         //css独立打包
         new ExtractTextPlugin("css/[name].css"),
         //html模板的处理
-        new HtmlWebpackPlugin( getHtml('index')  ),
-        new HtmlWebpackPlugin( getHtml('login')  ),
+        new HtmlWebpackPlugin( getHtml('index','首页')  ),
+        new HtmlWebpackPlugin( getHtml('login','用户登录')  ),
+        new HtmlWebpackPlugin( getHtml('result','操作结果')  )
     ]
 }
 if("dev" === WEBPACK_ENV){
-    config.entry.common.push("webpack-dev-server/client?http://localhost:8088/");
+    configs.entry.common.push("webpack-dev-server/client?http://localhost:8088/");
 }
 module.exports = configs
