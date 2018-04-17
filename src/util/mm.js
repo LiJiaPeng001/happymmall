@@ -2,7 +2,7 @@
  * @Author: mikey.zhaopeng 
  * @Date: 2018-04-16 10:39:41 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-04-16 17:46:56
+ * @Last Modified time: 2018-04-17 14:46:26
  */
 var conf={
     serverHost:""
@@ -28,7 +28,7 @@ var mm={
                 }
             },
             error:function(err){
-                typeof param.success === 'function' && param.error(err.statusText);
+                typeof param.success === 'function' && param.error(err.status);
             }
         })
     },
@@ -44,7 +44,7 @@ var mm={
     },
     //登录操作
     doLogin:function(){
-        window.location.href="./login.html?redirect="+encodeURIComponent(window.location.href);
+        window.location.href="./user-login.html?redirect="+encodeURIComponent(window.location.href);
     },
     //渲染html模板
     renderHTML:function(htmlTel,data){
@@ -57,15 +57,15 @@ var mm={
         console.log(msg||'操作成功');
     },
     //错误提示
-    errorTips:function(msg){
-        console.log(msg||'有哪里错误了')
+    errorTips:function(err){
+        console.log(err||'有哪里错误了')
     },
     //字段验证，支持是否为空、
     validate:function(value,type){
         var value=$.trim(value);
         //非空验证
         if(type==='require'){
-            return !!value;
+            return value;
         }
         //手机验证
         if(type==='phone'){

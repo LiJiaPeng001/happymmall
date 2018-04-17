@@ -2,7 +2,7 @@
  * @Author: mikey.zhaopeng 
  * @Date: 2018-04-15 14:52:42 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-04-17 10:45:22
+ * @Last Modified time: 2018-04-17 16:26:26
  */
 var webpack = require("webpack");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -27,7 +27,9 @@ var configs = {
     entry:{
         "common" : ["./src/page/common/common.js",],
         "index" : ["./src/page/index/index.js"],
-        "login" : ["./src/page/login/login.js"],
+        "user-login" : ["./src/page/user-login/index.js"],
+        "user-register" : ["./src/page/user-register/index.js"],
+        "user-pass-reset" : ["./src/page/user-pass-reset/index.js"],
         "result" : ["./src/page/result/index.js"]
     },
     output:{
@@ -61,8 +63,11 @@ var configs = {
         new ExtractTextPlugin("css/[name].css"),
         //html模板的处理
         new HtmlWebpackPlugin( getHtml('index','首页')  ),
-        new HtmlWebpackPlugin( getHtml('login','用户登录')  ),
-        new HtmlWebpackPlugin( getHtml('result','操作结果')  )
+        new HtmlWebpackPlugin( getHtml('user-login','用户登录')  ),
+        new HtmlWebpackPlugin( getHtml('user-register','用户注册')  ),
+        new HtmlWebpackPlugin( getHtml('user-pass-reset','z找回密码')  ),
+        new HtmlWebpackPlugin( getHtml('result','操作结果')  ),
+
     ]
 }
 if("dev" === WEBPACK_ENV){
