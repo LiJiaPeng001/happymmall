@@ -2,7 +2,7 @@
  * @Author: mikey.zhaopeng 
  * @Date: 2018-04-16 10:39:41 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-04-17 14:46:26
+ * @Last Modified time: 2018-04-18 17:35:50
  */
 var conf={
     serverHost:""
@@ -79,6 +79,7 @@ var mm={
     //跳回主页
     goHome:function(){
         window.location.href='./index.html';
-    }
+    },
+    
 };
 module.exports=mm;

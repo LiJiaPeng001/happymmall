@@ -84,5 +84,23 @@ var _user={
             error:rej
         })
     },
+    //获取用户信息
+    getUserInfo:function(res,rej){
+        _mm.request({
+            url:_mm.getServerUrl('/user/get_information.do'),
+            method:'POST',
+            success: res,
+            error:rej
+        })
+    },
+    //更新个人信息
+    updateUserInfo:function(res,rej){
+        _mm.request({
+            url:_mm.getServerUrl('/user/update_information.do'),
+            method:'POST',
+            success: res,
+            error:rej
+        })
+    }
 }
 module.exports=_user;

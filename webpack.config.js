@@ -2,7 +2,7 @@
  * @Author: mikey.zhaopeng 
  * @Date: 2018-04-15 14:52:42 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-04-17 16:26:26
+ * @Last Modified time: 2018-04-18 15:10:02
  */
 var webpack = require("webpack");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -29,7 +29,11 @@ var configs = {
         "index" : ["./src/page/index/index.js"],
         "user-login" : ["./src/page/user-login/index.js"],
         "user-register" : ["./src/page/user-register/index.js"],
+        "user-center" : ["./src/page/user-center/index.js"],
+        "user-center-update" : ["./src/page/user-center-update/index.js"],
+        'list'              : ['./src/page/list/index.js'],
         "user-pass-reset" : ["./src/page/user-pass-reset/index.js"],
+        "user-pass-update" : ["./src/page/user-pass-update/index.js"],
         "result" : ["./src/page/result/index.js"]
     },
     output:{
@@ -67,7 +71,10 @@ var configs = {
         new HtmlWebpackPlugin( getHtml('user-register','用户注册')  ),
         new HtmlWebpackPlugin( getHtml('user-pass-reset','z找回密码')  ),
         new HtmlWebpackPlugin( getHtml('result','操作结果')  ),
-
+        new HtmlWebpackPlugin(getHtml('list', '商品列表')),
+        new HtmlWebpackPlugin( getHtml('user-center','用户中心')  ),
+        new HtmlWebpackPlugin( getHtml('user-center-update','修改个人信息')  ),
+        new HtmlWebpackPlugin( getHtml('user-pass-update','修改密码')  ),
     ]
 }
 if("dev" === WEBPACK_ENV){

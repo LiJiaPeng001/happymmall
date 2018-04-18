@@ -2,7 +2,7 @@
  * @Author: mikey.zhaopeng 
  * @Date: 2018-04-15 14:56:58 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-04-17 17:41:48
+ * @Last Modified time: 2018-04-18 09:26:52
  */
 require('./index.css');
 require('page/common/nav-simple/index.js')
@@ -73,7 +73,6 @@ var page={
                 formError.show('请输入用户名');
             }
         })
-    },
     //输入新密码后的点击事件
     $('#submit-password').click(function(){
         var pwd=$.trim($('#password').val());
@@ -92,9 +91,9 @@ var page={
             //用户名不存在
         }else{
             formError.show('请输入不少于6位的新密码');
-        }
-    })
-},
+            }
+        })
+    },
     //加载输入用户名的一步
     loadStepUsername:function(){
         $(".step-username").show();
@@ -112,7 +111,7 @@ var page={
         formError.hide();
         //做容器的切换
         $(".step-question").hide().siblings('.step-password').show();
-    },
+    }
 }
 $(function(){
     page.init();
