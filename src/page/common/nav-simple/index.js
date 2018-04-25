@@ -1,8 +1,9 @@
 /*
- * @Author: mikey.zhaopeng 
- * @Date: 2018-04-16 15:17:07 
- * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-04-17 11:31:06
- */
+* @Author: Rosen
+* @Date:   2017-05-17 11:26:25
+* @Last Modified by:   Rosen
+* @Last Modified time: 2017-05-17 11:26:46
+*/
+
+'use strict';
 require('./index.css');
-require('page/common/nav/index.js');

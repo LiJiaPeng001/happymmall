@@ -1,0 +1,44 @@
+require('./index.css');
+require('page/common/nav/index.js');
+require('page/common/header/index.js');
+require('util/slider/index.js');
+var navSide = require('page/common/nav-side/index.js');
+var templateBanner  = require('./banner.string');
+var templateNav   =require('./nav.string');
+var tempateFloor =require('./floor.string');
+var mm             = require('util/mm.js');
+
+
+$(function(){
+    var pa=function(){
+        console.log('大傻逼')
+        console.log(this);
+        console.log($(this));
+    }
+    pa();
+    var navData=[
+        ['手机','数码'],
+        ['电脑','办公配件'],
+        ['电视','空调','冰箱','洗衣机'],
+        ['厨卫家电','小家电'],
+        ['家具','家装'],
+        ['厨卫家电','小家电'],
+        ['个护化妆','清洁用品','纸品'],
+        ['母婴用品','儿童玩具','童装童鞋'],
+        ['鞋靴','箱包','钟表','珠宝'],
+        ['图书','音像','电子书']
+    ];
+    var bannerHtml=mm.renderHTML(templateBanner);
+    var navHtml=mm.renderHTML(templateNav,{navData:navData});
+    $('.keywords-list').html(navHtml);
+    $('.banner-con').html(bannerHtml);
+    // 初始化banner
+    var $slider     = $('.banner').unslider({
+        dots: true
+    });
+    //前一张和后一张的绑定事件
+    $('.banner-con .banner-arrow').click(function(){
+        var forward = $(this).hasClass('prev') ? 'prev' : 'next';
+        $slider.data('unslider')[forward]();
+    });
+});

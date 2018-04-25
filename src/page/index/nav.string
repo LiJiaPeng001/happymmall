@@ -1,0 +1,5 @@
+                {{#navData}}
+                <li class="keywords-item">
+                    <a class="link" target="_blank" href="./list.html?keyword=手机"></a>
+                </li>
+                {{/navData}}

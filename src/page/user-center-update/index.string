@@ -19,5 +19,19 @@
         <span class="label">答 案：</span>
         <input class="input" id="answer" autocomplete="off" value="{{answer}}" />
     </div>
+    <div class="form-line">
+        <span class="label">地 区：</span>
+        <div id="updateAddress">
+            <select class="form-item" id="receiver-province">
+                <option value="">请选择</option>
+            </select>
+            <select class="form-item" id="receiver-city">
+                <option value="">请选择</option>
+            </select>
+            <select class="form-item" id="receiver-county">
+                <option value="">请选择</option>
+            </select>
+        </div>
+    </div>
     <span class="btn btn-submit">提交</span>
 </div>

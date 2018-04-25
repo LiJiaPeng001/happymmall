@@ -1,9 +1,10 @@
 /*
- * @Author: mikey.zhaopeng 
- * @Date: 2018-04-17 11:25:12 
- * @Last Modified by:   mikey.zhaopeng 
- * @Last Modified time: 2018-04-17 11:25:12 
- */
+* @Author: Rosen
+* @Date:   2017-05-21 15:11:05
+* @Last Modified by:   Rosen
+* @Last Modified time: 2017-05-21 22:46:39
+*/
+/* 最外层容器 */
 .page-wrap{
     padding: 40px 0;
     background: #e72955;

@@ -1,8 +1,8 @@
 /*
 * @Author: Rosen
 * @Date:   2017-05-28 11:58:08
- * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-04-18 17:41:23
+* @Last Modified by:   Rosen
+* @Last Modified time: 2017-05-28 15:36:16
 */
 
 'use strict';
@@ -33,7 +33,6 @@ var Pagination = function(){
 Pagination.prototype.render = function(userOption){
     // 合并选项
     this.option = $.extend({}, this.defaultOption, userOption);
-    console.log(this.option);
     // 判断容器是否为合法的jquery对象
     if(!(this.option.container instanceof jQuery)){
         return;
@@ -74,7 +73,7 @@ Pagination.prototype.getPaginationHtml = function(){
         value : this.option.nextPage,
         disabled : !this.option.hasNextPage
     });
-    html = _mm.renderHTML(templatePagination, {
+    html = _mm.renderHtml(templatePagination, {
         pageArray   : pageArray,
         pageNum     : option.pageNum,
         pages       : option.pages

@@ -1,8 +1,8 @@
 /*
 * @Author: mmall
 * @Date:   2017-05-27 17:57:49
- * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-04-18 17:37:03
+* @Last Modified by:   Rosen
+* @Last Modified time: 2017-05-28 19:48:16
 */
 
 'use strict';
@@ -21,7 +21,7 @@ var page = {
             categoryId      : _mm.getUrlParam('categoryId') || '',
             orderBy         : _mm.getUrlParam('orderBy')    || 'default',
             pageNum         : _mm.getUrlParam('pageNum')    || 1,
-            pageSize        : _mm.getUrlParam('pageSize')   || 10
+            pageSize        : _mm.getUrlParam('pageSize')   || 20
         }
     },
     init : function(){
@@ -80,8 +80,7 @@ var page = {
             ? (delete listParam.keyword) : (delete listParam.categoryId);
         // 请求接口
         _product.getProductList(listParam, function(res){
-            console.log(res);
-            listHtml = _mm.renderHTML(templateIndex, {
+            listHtml = _mm.renderHtml(templateIndex, {
                 list :  res.list
             });
             $pListCon.html(listHtml);

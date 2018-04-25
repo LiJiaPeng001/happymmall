@@ -1,83 +1,111 @@
 /*
- * @Author: mikey.zhaopeng 
- * @Date: 2018-04-15 14:52:42 
+* @Author: Rosen
+* @Date:   2017-05-08 15:28:19
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-04-18 15:10:02
- */
-var webpack = require("webpack");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+ * @Last Modified time: 2018-04-22 13:58:18
+*/
+var webpack             = require('webpack');
+var ExtractTextPlugin   = require('extract-text-webpack-plugin');
+var HtmlWebpackPlugin   = require('html-webpack-plugin');
 
-//环境变量的配置  dev-online
-var WEBPACK_ENV = process.env.WEBPACK_ENV || 'online';
-console.log(WEBPACK_ENV);
+// 环境变量配置，dev / online
+var WEBPACK_ENV         = process.env.WEBPACK_ENV || 'dev';
 
-//获取html-webpack-plugins
-var getHtml = function (name,title) {
+// 获取html-webpack-plugin参数的方法 
+var getHtmlConfig = function(name, title){
     return {
-            title:title,                                    //设置生成的 html 文件的标题。
-            template : "./src/view/"+name+".html",          //根据自己的指定的模板文件来生成特定的 html 文件。这里的模板类型可以是任意你喜欢的模板，可                                                  以是 html, jade, ejs, hbs, 等等，但是要注意的是，使用自定义的模板文件时，需要提前安装对                                                     应的 loader， 否则webpack不能正确解析。
-            filename : "view/"+name+".html",                //生成 html 文件的文件名。默认为 index.html.
-            inject   : true,                                //script标签位于html文件的 body 底部
-            hash     : true,                                //hash选项的作用是 给生成的 js 文件一个独特的 hash 值
-            chunks   : ['common',name]                      //chunks 选项的作用主要是针对多入口(entry)文件。当你有多个入口文件的时候，对应就会生成多                                                    个编译后的 js 文件。那么 chunks 选项就可以决定是否都使用这些生成的 js 文件。
-    }
-}
-var configs = {
-    entry:{
-        "common" : ["./src/page/common/common.js",],
-        "index" : ["./src/page/index/index.js"],
-        "user-login" : ["./src/page/user-login/index.js"],
-        "user-register" : ["./src/page/user-register/index.js"],
-        "user-center" : ["./src/page/user-center/index.js"],
-        "user-center-update" : ["./src/page/user-center-update/index.js"],
+        template    : './src/view/' + name + '.html',
+        filename    : 'view/' + name + '.html',
+        favicon     : './favicon.ico',
+        title       : title,
+        inject      : true,
+        hash        : true,
+        chunks      : ['common', name]
+    };
+};
+// webpack config
+var config = {
+    entry: {
+        'common'            : ['./src/page/common/index.js'],
+        'index'             : ['./src/page/index/index.js'],
         'list'              : ['./src/page/list/index.js'],
-        "user-pass-reset" : ["./src/page/user-pass-reset/index.js"],
-        "user-pass-update" : ["./src/page/user-pass-update/index.js"],
-        "result" : ["./src/page/result/index.js"]
+        'detail'            : ['./src/page/detail/index.js'],
+        'cart'              : ['./src/page/cart/index.js'],
+        'order-confirm'     : ['./src/page/order-confirm/index.js'],
+        'order-list'        : ['./src/page/order-list/index.js'],
+        'order-detail'      : ['./src/page/order-detail/index.js'],
+        'payment'           : ['./src/page/payment/index.js'],
+        'user-login'        : ['./src/page/user-login/index.js'],
+        'user-register'     : ['./src/page/user-register/index.js'],
+        'user-pass-reset'   : ['./src/page/user-pass-reset/index.js'],
+        'user-center'       : ['./src/page/user-center/index.js'],
+        'user-center-update': ['./src/page/user-center-update/index.js'],
+        'user-pass-update'  : ['./src/page/user-pass-update/index.js'],
+        'result'            : ['./src/page/result/index.js'],
+        'about'             : ['./src/page/about/index.js'],
     },
-    output:{
-        path:"./dist",
-        publicPath:"/dist",
-        filename:"js/[name].js"
+    output: {
+        path        : __dirname + '/dist/',
+        //'dev' === WEBPACK_ENV ? '/dist/' : '//s.happymmall.com/mmall-fe/dist/'
+        publicPath  : '/dist/',
+        filename    : 'js/[name].js'
+    },
+    externals : {
+        'jquery' : 'window.jQuery'
     },
     module: {
         loaders: [
-          { test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader","css-loader") },
-          { test: /\.(gif|png|jpg|woff|svg|eot|ttf)\??.*$/, loader: "url-loader?limit=100&name=../res/[name].[ext]" },
-          { test: /\.string$/, loader: "html-loader" }
+            { test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader","css-loader") },
+            { test: /\.(gif|png|jpg|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=100&name=resource/[name].[ext]' },
+            {
+                test: /\.string$/, 
+                loader: 'html-loader',
+                query : {
+                    minimize : true,
+                    removeAttributeQuotes : false
+                }
+            }
         ]
-      },
-    resolve:{
-        alias:{
-            node_modules:__dirname+'/node_modules',
-            util:__dirname+'/src/util',
-            page:__dirname+'/src/page',
-            service:__dirname+'/src/service',
-            image:__dirname+'/src/image',
+    },
+    resolve : {
+        alias : {
+            node_modules    : __dirname + '/node_modules',
+            util            : __dirname + '/src/util',
+            page            : __dirname + '/src/page',
+            service         : __dirname + '/src/service',
+            image           : __dirname + '/src/image'
         }
     },
     plugins: [
-        //独立通用模块
+        // 独立通用模块到js/base.js
         new webpack.optimize.CommonsChunkPlugin({
-            name : "common",
-            filename : "js/base.js"
+            name : 'common',
+            filename : 'js/base.js'
         }),
-        //css独立打包
+        // 把css单独打包到文件里
         new ExtractTextPlugin("css/[name].css"),
-        //html模板的处理
-        new HtmlWebpackPlugin( getHtml('index','首页')  ),
-        new HtmlWebpackPlugin( getHtml('user-login','用户登录')  ),
-        new HtmlWebpackPlugin( getHtml('user-register','用户注册')  ),
-        new HtmlWebpackPlugin( getHtml('user-pass-reset','z找回密码')  ),
-        new HtmlWebpackPlugin( getHtml('result','操作结果')  ),
-        new HtmlWebpackPlugin(getHtml('list', '商品列表')),
-        new HtmlWebpackPlugin( getHtml('user-center','用户中心')  ),
-        new HtmlWebpackPlugin( getHtml('user-center-update','修改个人信息')  ),
-        new HtmlWebpackPlugin( getHtml('user-pass-update','修改密码')  ),
+        // html模板的处理
+        new HtmlWebpackPlugin(getHtmlConfig('index', '首页')),
+        new HtmlWebpackPlugin(getHtmlConfig('list', '商品列表')),
+        new HtmlWebpackPlugin(getHtmlConfig('detail', '商品详情')),
+        new HtmlWebpackPlugin(getHtmlConfig('cart', '购物车')),
+        new HtmlWebpackPlugin(getHtmlConfig('order-confirm', '订单确认')),
+        new HtmlWebpackPlugin(getHtmlConfig('order-list', '订单列表')),
+        new HtmlWebpackPlugin(getHtmlConfig('order-detail', '订单详情')),
+        new HtmlWebpackPlugin(getHtmlConfig('payment', '订单支付')),
+        new HtmlWebpackPlugin(getHtmlConfig('user-login', '用户登录')),
+        new HtmlWebpackPlugin(getHtmlConfig('user-register', '用户注册')),
+        new HtmlWebpackPlugin(getHtmlConfig('user-pass-reset', '找回密码')),
+        new HtmlWebpackPlugin(getHtmlConfig('user-center', '个人中心')),
+        new HtmlWebpackPlugin(getHtmlConfig('user-center-update', '修改个人信息')),
+        new HtmlWebpackPlugin(getHtmlConfig('user-pass-update', '修改密码')),
+        new HtmlWebpackPlugin(getHtmlConfig('result', '操作结果')),
+        new HtmlWebpackPlugin(getHtmlConfig('about', '关于MMall')),
     ]
+};
+
+if('dev' === WEBPACK_ENV){
+    config.entry.common.push('webpack-dev-server/client?http://localhost:8088/');
 }
-if("dev" === WEBPACK_ENV){
-    configs.entry.common.push("webpack-dev-server/client?http://localhost:8088/");
-}
-module.exports = configs
+
+module.exports = config;
